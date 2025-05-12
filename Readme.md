@@ -234,4 +234,4 @@ export default router;
 
 ⭐ สร้างด้วยความรักโดยทีมของเรา ⭐
 
-หากมีคำถามหรือข้อเสนอแนะ โปรดติดต่อ [your-email@example.com](mailto:your-email@example.com)
+หากมีคำถามหรือข้อเสนอแนะ โปรดติดต่อ [singkhet1@gmail.com](mailto:singkhet1@gmail.com)
