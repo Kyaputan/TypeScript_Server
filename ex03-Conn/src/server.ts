@@ -7,6 +7,8 @@ dotenv.config();
 const PORT: number = 5000;
 const app: Application = express();
 app.use(express.json());
+
+
 app.use(morgan("dev"));
 
 const DB_HOST: string = process.env.DB_HOST || "localhost";
@@ -14,7 +16,6 @@ const DB_USER: string = process.env.DB_USER || "root";
 const DB_PASSWORD: string = process.env.DB_PASSWORD || "";
 const DB_NAME: string = process.env.DB_NAME || "Test";
 
-console.log(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 const connection: mysql.Connection = mysql.createConnection({
   host: DB_HOST,
