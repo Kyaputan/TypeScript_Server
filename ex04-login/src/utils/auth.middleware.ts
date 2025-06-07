@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { env } from '../config/env';
 import { JWTUserPayload } from '../interfaces/auth.interfaces';
+import { expressjwt } from 'express-jwt';
 
 export const generateToken = (payload: JWTUserPayload): string => {
     return jwt.sign(payload, env.JWT_SECRET, { expiresIn: '1d' });
@@ -9,3 +10,9 @@ export const generateToken = (payload: JWTUserPayload): string => {
 export const verifyToken = (token: string): any => {
     return jwt.verify(token, env.JWT_SECRET);
 };
+
+export const requireLogin = expressjwt({
+    secret: env.JWT_SECRET,
+    algorithms: ["HS256"],
+    requestProperty: "auth",
+});
