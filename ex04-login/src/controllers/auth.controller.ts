@@ -8,13 +8,14 @@ import { generateToken } from "../utils/auth.middleware";
 
 
 export const register = async (req: Request<{}, {}, UserRegisterDTO>,res: Response) => {
-  const userData = userRegisterSchema.parse(req.body);
+  const userData: UserRegisterDTO = userRegisterSchema.parse(req.body);
   const { username, email, password } = userData;
 
   try {
     const hashedPassword: string = await hashPassword(password);
 
-    const query: string = `INSERT INTO users (username, email, password, role, created_at, updated_at) VALUES (?, ?, ?, 'user', NOW(), NOW())`;
+    const query: string = `INSERT INTO users (username, email, password, role, created_at, updated_at) 
+    VALUES (?, ?, ?, 'user', NOW(), NOW())`;
 
     const [result]: [ResultSetHeader, any] = await pool.execute(query, [username,email,hashedPassword,]);
 
@@ -37,7 +38,7 @@ export const register = async (req: Request<{}, {}, UserRegisterDTO>,res: Respon
 
 
 export const login = async (req: Request<{}, {}, UserLoginDTO>,res: Response) => {
-    const userData = userLoginSchema.parse(req.body);
+    const userData: UserLoginDTO = userLoginSchema.parse(req.body);
     const { email, password } = userData;
   
     try {
