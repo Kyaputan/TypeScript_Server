@@ -11,8 +11,3 @@ export const verifyToken = (token: string): any => {
     return jwt.verify(token, env.JWT_SECRET);
 };
 
-export const requireLogin = expressjwt({
-    secret: env.JWT_SECRET,
-    algorithms: ["HS256"],
-    requestProperty: "auth",
-});
