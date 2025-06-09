@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+import { ObjectId } from "mongoose";
 // === Interfaces ===
 
 export interface IUser {
@@ -41,7 +41,8 @@ export const userRegisterSchema = z.object({
 export const updateUserSchema = z.object({
     username: z.string().min(3).max(255).optional(),
     email: z.string().email().optional(),
-    password: z.string().min(6).max(255).optional(),
+    password: z.string().min(6).max(255),
+    newpassword: z.string().min(6).max(255).optional(),
 }).strict();
 
 export const userDeleteSchema = z.object({
