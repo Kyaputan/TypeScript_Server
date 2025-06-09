@@ -5,6 +5,7 @@ import { userRegisterSchema, userLoginSchema, updateUserSchema, userDeleteSchema
 import { comparePassword, hashPassword } from "../utils/hash.util";
 import { generateToken } from "../utils/auth.middleware";
 import { JWTUserPayload } from "../interfaces/auth.interfaces";
+import { IUserDocument } from "../models/User";
 
 class AuthController {
 
@@ -13,7 +14,7 @@ class AuthController {
     const { username, email, password } = registerData;
     try {
       const hashedPassword: string = await hashPassword(password);
-      const user = await User.create({ username, email, password: hashedPassword });
+      const user: IUserDocument = await User.create({ username, email, password: hashedPassword });
       res.status(201).json({ success: true, message: "User registered successfully", user });
     } catch (err) {
       console.error(err);
@@ -26,7 +27,7 @@ class AuthController {
     const { email, password } = loginData;
     try {
 
-      const user = await User.findOne({ email }).exec();
+      const user: IUserDocument | null = await User.findOne({ email }).exec();
       if (!user) {
         res.status(401).json({ success: false, error: "Invalid email or password" });
         return;
@@ -61,7 +62,7 @@ class AuthController {
     const userId = req.auth?._id;
 
     try {
-      const user = await User.findById(userId).exec();
+      const user: IUserDocument | null = await User.findById(userId).exec();
       if (!user) {
         res.status(404).json({ success: false, error: "User not found" });
         return;
@@ -91,7 +92,7 @@ class AuthController {
     const { email, password } = deleteData;
     const userId = req.auth?._id;
     try {
-      const user = await User.findOne({ email }).exec();
+      const user: IUserDocument | null = await User.findOne({ email }).exec();
       if (!user) {
         res.status(401).json({ success: false, error: "Invalid email or password" });
         return;
