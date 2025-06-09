@@ -21,7 +21,7 @@ class AuthController {
       }
       const hashedPassword: string = await hashPassword(password);
       const user: IUserDocument = await User.create({ username, email, password: hashedPassword });
-      res.status(201).json({
+      res.status(200).json({
         success: true,
         message: "User registered successfully",
         user: {
